@@ -1,0 +1,4 @@
+all:
+	gcc ./Main.c -o main.exe
+run:
+	./main.exe
