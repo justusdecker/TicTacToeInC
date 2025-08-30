@@ -18,18 +18,8 @@ bool CheckSum(char points) {
 }
 
 void CheckWin(void) {
-    char w;
-    char x;
-    char y;
-    bool draw = false;
-    for (w=0;w<3;w++) {
-        x = w / 3;
-        y = w % 3;
-        if (table[x][y]) {
-            draw = true;
-            break;
-        }
-    }
+    
+
     // define the checks
     // a & b are row & columns
     // c & d are diagonals
@@ -37,14 +27,14 @@ void CheckWin(void) {
     char w_b = 0;
     char w_c = 0;
     char w_d = 0;
-    for (x=0;x<3;x++) {
+    for (char x=0;x<3;x++) {
         // adding up diagonals
         w_c += table[x][x];
         w_d += table[2-x][2-x];
         if (!CheckSum(w_a) && !CheckSum(w_b)) {
             w_a = 0;
             w_b = 0;
-            for (y=0;y<3;y++) {
+            for (char y=0;y<3;y++) {
                 // adding up rows & columns
                 w_a += table[x][y];
                 w_b += table[y][x];
@@ -54,7 +44,21 @@ void CheckWin(void) {
     if (CheckSum(w_a) || CheckSum(w_b) || CheckSum(w_c) || CheckSum(w_d)) {
             printf("Player %d Wins!\n", player);
             is_running = false;
+            return;
         }
+    
+    char x;
+    char y;
+    char draw = 0;
+    for (char w=0;w<9;w++) {
+        x = w / 3;
+        y = w % 3;
+        if (table[x][y]) draw++;
+    }
+    if (draw == 9) {
+        printf("Draw!\n");
+        is_running = false;
+    }
 }
 
 // clear input buffer
